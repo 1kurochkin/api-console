@@ -1,0 +1,28 @@
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+.login-page__content {
+    width: 520px;
+    padding: 40px 30px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-page__content__head {
+    margin-bottom: 20px;
+}
+
+.login-page__content__head__title {
+    font-size: 24px;
+}
+
+.login-page__content__body {
+    margin-bottom: 20px;
+}
