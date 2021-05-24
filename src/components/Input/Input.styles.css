@@ -1,0 +1,42 @@
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+}
+
+.input-wrapper-error .input-wrapper__header__label {
+    color: red;
+}
+
+.input-wrapper-error .input-wrapper__input {
+    border: 1px solid red;
+    box-shadow: 0px 0px 5px rgba(207, 44, 0, 0.5);
+}
+
+.input-wrapper__head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.input-wrapper__header__optional {
+    color: #999999;
+    font-size: 12px ;
+}
+
+.input-wrapper__input {
+    width: 100%;
+    padding: 5px 10px;
+    border:1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    cursor: pointer;
+    outline: rgba(0, 0, 0, 0.4);
+}
+
+
+
+.input-wrapper__input:hover {
+    border:1px solid rgba(0, 0, 0, 0.4);
+}
+
