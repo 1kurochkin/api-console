@@ -1,0 +1,70 @@
+.tab {
+    padding: 5px 10px;
+    margin-right: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    display: flex;
+    position: relative;
+    min-width: 10%;
+    justify-content: space-between;
+}
+
+.tab-active {
+    background-color: #C4C4C4;
+}
+
+.tab__label {
+    padding-left: 5px;
+    padding-right: 10px;
+}
+
+.tab__options-list {
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    top: 100%;
+    position: absolute;
+    background: white;
+    width: 100%;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+div.tab__options-list > div {
+    padding: 15px 0 15px 15px;
+    cursor: pointer;
+}
+div.tab__options-list > div:hover {
+    color: white;
+}
+
+div.tab__options-list > div:not(:last-child):hover {
+    background: #0055FB;
+}
+
+div.tab__options-list > div:last-child:hover {
+    background: #CF2C00;
+}
+
+div.tab__options-list > div:last-child {
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+div.tab__copied {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+
+div.tab__copied > span {
+    background:  #F6F6F6;
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 2px 5px;
+}
