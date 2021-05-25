@@ -1,0 +1,40 @@
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+}
+
+.header__logo-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.header__logo-wrapper__title {
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+.header__right-block {
+    display: flex;
+}
+
+.header__right-block__user-info {
+    padding: 5px 10px;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+}
+
+.header__right-block__exit-button {
+    display: flex;
+    align-items: center;
+    margin-left: 35px;
+    margin-right: 33px;
+}
+
+.header__right-block__exitButton_img {
+    margin-left: 11px;
+}
+
+
