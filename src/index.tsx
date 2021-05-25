@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './app/App';
 import * as serviceWorker from './serviceWorker';
-import {Provider} from "react-redux";
+// import {Provider} from "react-redux";
 import {BrowserRouter as Router} from "react-router-dom";
+import {Provider} from "react-redux";
 // import {PersistGate} from "redux-persist/integration/react";
 // import createStore from "./store";
 

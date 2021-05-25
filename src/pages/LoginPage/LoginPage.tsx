@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import {useForm} from "react-hook-form";
 import {FORM} from "../../constants";
 import Input from "../../components/Input/Input";
@@ -9,7 +8,7 @@ import {Button} from "../../components/Button/Button";
 
 const {LOGIN, SUB_LOGIN, PASSWORD} = FORM
 
-const LoginPage = ({history}: any) => {
+export const LoginPage = ({history}: any) => {
 
     /////////////////////////
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
@@ -51,7 +50,7 @@ const LoginPage = ({history}: any) => {
 
     return (
         <div className='login-page'>
-            {/*<img className='login-page__logo' src="/icons/logo.svg"/>*/}
+            <img className='login-page__logo' src="/icons/logo.svg"/>
             <div className="login-page__content">
 
                 <div className="login-page__content__head">
@@ -86,7 +85,6 @@ const LoginPage = ({history}: any) => {
     );
 }
 
-export default withRouter(LoginPage);
 
 
 {/*<Form onSubmit={onSubmit} action="/">*/
