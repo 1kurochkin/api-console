@@ -1,0 +1,32 @@
+.console-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #F6F6F6;
+}
+
+.console-page__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+
+.console-page__footer {
+    padding: 15px;
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+    display: flex;
+    justify-content: space-between;
+}
+
+.console-page__footer__right-block {
+    display: flex;
+    align-items: center;
+}
+
+.console-page__footer__right-block__img {
+    margin-right: 10px;
+}
+
+
