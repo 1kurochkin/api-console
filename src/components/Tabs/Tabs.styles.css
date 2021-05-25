@@ -1,0 +1,25 @@
+.tabs {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.tabs__row {
+    display: flex;
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+    padding: 10px 0 10px 15px;
+    align-items: center;
+}
+
+.tabs__row__reset {
+    position: absolute;
+    right: 0;
+    margin-right: 15px;
+}
+
+
+
+
+
+
