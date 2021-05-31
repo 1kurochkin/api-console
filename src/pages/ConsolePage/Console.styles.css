@@ -25,8 +25,20 @@
     align-items: center;
 }
 
+.console-page__footer__right-block:hover {
+    fill: #0055FB;
+    cursor: pointer;
+
+}
+.console-page__footer__right-block:focus {
+    opacity: 0.5;
+    border: 2px solid #45A5FF;
+    border-radius: 7px;
+}
+
 .console-page__footer__right-block__img {
     margin-right: 10px;
 }
+
 
 
