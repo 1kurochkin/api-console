@@ -6,6 +6,37 @@
     height: 100%;
 }
 
+.login-page__logo {
+    margin-bottom: 20px;
+}
+
+.login-page__error {
+    color: #CF2C00;
+
+    padding: 15px 10px;
+    margin-bottom: 20px;
+    background: rgba(207, 44, 0, 0.1);
+    border-radius: 5px;
+    position: relative;
+}
+
+.login-page__error__header {
+    display: flex;
+    align-items: center;
+}
+.login-page__error__header span{
+    font-size: 18px;
+    line-height: 30px;
+    padding-left: 10px;
+}
+
+.login-page__error__description {
+    font-size: 12px;
+    line-height: 20px;
+    opacity: 0.5;
+    padding-left: 30px;
+}
+
 
 .login-page__content {
     width: 520px;
@@ -26,3 +57,4 @@
 .login-page__content__body {
     margin-bottom: 20px;
 }
+

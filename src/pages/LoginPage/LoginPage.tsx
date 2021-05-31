@@ -1,62 +1,42 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React from 'react';
 import {useForm} from "react-hook-form";
-import {FORM} from "../../constants";
+import {FORM, REQUESTS} from "../../constants";
 import Input from "../../components/Input/Input";
 import './LoginPage.styles.css'
 import {Button} from "../../components/Button/Button";
+// import {loginThunk} from "../../redux/authReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {storeType} from "../../store";
+import {postLogin} from "../../redux/fetchState/reducer";
 
 const {LOGIN, SUB_LOGIN, PASSWORD} = FORM
 
-export const LoginPage = ({history}: any) => {
-
-    /////////////////////////
+const LoginPage = () => {
+    const loading = useSelector((state:storeType) => state.fetchState[REQUESTS.POST_LOGIN].loading )
+    const error = useSelector((state:storeType) => state.fetchState[REQUESTS.POST_LOGIN].error )
+    const dispatch = useDispatch()
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
-    const watchAllFields = watch();
-
-
-    console.log(watchAllFields)
-    console.log(errors)
-
-    // const dispatch = useDispatch();
-    // const [login, setLogin] = useState('');
-    // const [sublogin, setSubLogin] = useState('');
-    // const [password, setPassword] = useState('');
-    // const loading = useSelector((state: any) => state.auth.loading);
-    // const isLoggedIn = useSelector((state: any) => !!state.auth.sessionKey?.length);
-    // console.log('loading', loading);
-
-
-    // useEffect(() => {
-    //     if (isLoggedIn) {
-    //         history.push('/console');
-    //     }
-    // }, [isLoggedIn]);
-
-    // const doLogin = () => {
-    //     dispatch(
-    //         authenticate({
-    //             login,
-    //             sublogin,
-    //             password,
-    //         })
-    //     );
-    // };
-
-    const onSubmit = ({ login, sublogin, password }: any) => {
-
+    const onSubmit = (loginFormData: object) => {
+        //login:"karinalol854@gmail.com", passwd: "jo2Fadaqu"
+        // @ts-ignore
+        dispatch(postLogin(loginFormData))
     }
-
 
     return (
         <div className='login-page'>
-            <img className='login-page__logo' src="/icons/logo.svg"/>
+                <img className='login-page__logo' src="/icons/logo.svg"/>
             <div className="login-page__content">
 
                 <div className="login-page__content__head">
                     <span className="login-page__content__head__title">API-консолька</span>
                 </div>
-
+                {error && <div className='login-page__error'>
+                    <div className='login-page__error__header'>
+                        <img src="/icons/error-smile.svg"/>
+                        <span>Вход не вышел</span>
+                    </div>
+                    <div className='login-page__error__description'>{error}</div>
+                </div>}
                 <div className="login-page__content__body">
                     <Input
                         error={errors[LOGIN.name]}
@@ -70,6 +50,7 @@ export const LoginPage = ({history}: any) => {
                         {...register(SUB_LOGIN.name, SUB_LOGIN.options)}
                     />
                     <Input
+                        type={'password'}
                         error={errors[PASSWORD.name]}
                         label='Пароль'
                         {...register(PASSWORD.name, PASSWORD.options)}
@@ -77,7 +58,7 @@ export const LoginPage = ({history}: any) => {
                 </div>
 
                 <div className="login-page__content__footer">
-                    <Button text='Войти' onClick={handleSubmit(onSubmit)} loading={false} disabled={!!Object.keys(errors).length}/>
+                    <Button text='Войти' onClick={handleSubmit(onSubmit)} loading={loading} disabled={!!Object.keys(errors).length}/>
                 </div>
 
             </div>
@@ -85,21 +66,4 @@ export const LoginPage = ({history}: any) => {
     );
 }
 
-
-
-{/*<Form onSubmit={onSubmit} action="/">*/
-}
-{/*  <input value={login} onChange={(e) => setLogin(e.target.value)} placeholder="Логин" />*/
-}
-{/*  <input value={sublogin} onChange={(e) => setSubLogin(e.target.value)} placeholder="Сублогин" />*/
-}
-{/*  <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" />*/
-}
-{/*  <button type="submit" onClick={onSubmit}>*/
-}
-{/*    Отправить*/
-}
-{/*  </button>*/
-}
-{/*</Form>*/
-}
+export default LoginPage
