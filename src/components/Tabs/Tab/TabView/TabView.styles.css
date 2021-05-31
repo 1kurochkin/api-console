@@ -33,4 +33,9 @@ div.tab-view-error  input.tab-view__input-field__input  {
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     font-size: 14px;
+    resize: none;
+    outline: none;
+    min-width: 400px;
+    min-height: 400px;
 }
+
