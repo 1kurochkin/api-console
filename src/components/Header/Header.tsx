@@ -36,7 +36,7 @@ export const Header = React.memo(
             <div className="header">
 
                 <div className="header__logo-wrapper">
-                    <img className='header__logo-wrapper_img' src="/icons/logo.svg"/>
+                    <img className='header__logo-wrapper_img' src="api-console/icons/logo.svg"/>
                     <span className="header__logo-wrapper__title">API-консолька</span>
                 </div>
 
