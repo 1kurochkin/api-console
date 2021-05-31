@@ -4,6 +4,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 15px;
+    /*border-bottom: 1px solid #dedede;*/
 }
 
 .header__logo-wrapper {
@@ -31,10 +32,15 @@
     align-items: center;
     margin-left: 35px;
     margin-right: 33px;
+    cursor: pointer;
 }
 
 .header__right-block__exitButton_img {
     margin-left: 11px;
 }
 
+.header__right-block__full-screen-button:hover {
+    fill: #0055FB;
+    cursor: pointer;
+}
 

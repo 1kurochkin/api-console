@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import './Header.styles.css'
-
+import {useDispatch} from "react-redux";
+import {postLogout} from "../../redux/fetchState/reducer";
+import exitButton from '../../../public/icons/full-screen-exit.svg'
 
 type PropsTypes = {
     login: string
@@ -11,6 +13,7 @@ export const Header = React.memo(
     ({login, subLogin}: PropsTypes) => {
 
         const [fullScreen, setFullScreen] = useState(false)
+        const dispatch = useDispatch()
 
         function toggleFullScreen() {
             if (!document.fullscreenElement) {
@@ -24,6 +27,11 @@ export const Header = React.memo(
             }
         }
 
+        const onExitLogout = () => {
+            console.log('exit')
+            dispatch(postLogout())
+        }
+
         return (
             <div className="header">
 
@@ -34,14 +42,17 @@ export const Header = React.memo(
 
                 <div className="header__right-block">
                     <div className="header__right-block__user-info">{login} {subLogin ? `:  ${subLogin}` : ''}</div>
-                    <div className="header__right-block__exit-button">
+                    <div
+                        onClick={onExitLogout}
+                        className="header__right-block__exit-button">
                         <span>Выйти</span>
-                        <img className="header__right-block__exitButton_img" src="/icons/log-out.svg"/>
+                        <img className="header__right-block__exitButton_img"
+                             src="/icons/log-out.svg"/>
                     </div>
 
                     <img
                         className="header__right-block__full-screen-button"
-                        src={ fullScreen ? '/icons/full-screen-exit.svg' : '/icons/full-screen.svg' }
+                        src={fullScreen ? '/icons/full-screen-exit.svg' : '/icons/full-screen.svg'}
                         onClick={toggleFullScreen}
                     />
                 </div>
