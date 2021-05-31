@@ -33,7 +33,7 @@ export const TabView = ({error, control, inputField, outputField}: PropsTypes) =
                 <Controller
                     control={control}
                     name={FORM.TEXT_AREA_OUTPUT.name}
-                    render={() => <textarea value={ error ? error : outputField.value }
+                    render={() => <textarea readOnly value={ error ? error : outputField.value }
                                             className="tab-view__input-field__textarea"/>
                     }
                 />

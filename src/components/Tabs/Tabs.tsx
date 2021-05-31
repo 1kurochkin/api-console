@@ -25,14 +25,16 @@ export const Tabs =
     (props: PropsTypes) => {
         const {tabs, inputField, removeRequest, executeClick, removeAllRequests, outputField, control, setActiveTab, activeTab} = props
         const [isOpenTab, setIsOpenTab] = useState(false)
-        console.log(activeTab, "ACTIVE TAAAAAAB")
         return (
             <div className={"tabs"}>
                 <div
                     // style={{overflowY: isOpenTab ? "hidden" : "scroll"}}
                     className='tabs__row'
                 >
-                    {/*<div className={'tabs__row__absolute'}>*/}
+                    <div
+                        style={{zIndex:isOpenTab ? 10 : 0 }}
+                        className={'tabs__row__absolute'}
+                    >
                         {tabs.map((t: any, index) => (
                             <Tab key={t.id}
                                  executeClick={() => executeClick(index)}
@@ -41,13 +43,13 @@ export const Tabs =
                                  removeRequest={() => removeRequest(index)}
                                  onChangeDropDown={(isOpenTab:boolean) => setIsOpenTab(isOpenTab)}
                                  label={t.action}
-                                 error={t.error}
+                                 error={t.errorRequest}
                                  isActive={index === activeTab}
                                  onClick={() => setActiveTab(index)}
                             />
                         ))
                         }
-                    {/*</div>*/}
+                    </div>
 
                 </div>
 
@@ -55,7 +57,7 @@ export const Tabs =
                     activeTab === index ? <TabView control={control}
                                                   inputField={inputField}
                                                   outputField={{...outputField, value: jsonFormat(t.output)}}
-                                                  error={t.error}
+                                                  error={t.errorJson}
                     /> : null
                 ))
                 }

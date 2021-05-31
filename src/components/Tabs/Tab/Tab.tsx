@@ -15,28 +15,26 @@ type PropsTypes = {
 }
 
 export const Tab =
-    ({label, isLast, isActive, onClick, executeClick, removeRequest, error,inputText}: PropsTypes) => {
+    ({label, isLast, isActive, onClick, onChangeDropDown, executeClick, removeRequest, error,inputText}: PropsTypes) => {
 
         const [dropDown, setDropDown] = useState(false)
         const [copyMode, setCopyMode] = useState(false)
         const dropDownStateRef = useRef<any>();
         dropDownStateRef.current = dropDown
-        console.log("ERRRRORRR", error)
+
         const onCopyHandler = () => {
             console.log('onCopyHandler')
-            setCopyMode(!copyMode)
-            setDropDown(false)
+
+            changeDropDown(false)
             //Copy to clipboard
-            navigator.clipboard.writeText(inputText).then(function() {
-                console.log('Async: Copying to clipboard was successful!');
-            }, function(err) {
-                console.error('Async: Could not copy text: ', err);
-            });
+            navigator.clipboard.writeText(inputText).then(
+                () => setCopyMode(!copyMode),
+                undefined
+            );
         }
-        const changeDropDown = (event:React.MouseEvent<any>, boolean: boolean) => {
-            event.stopPropagation()
-            console.log("DROP DOWN")
-            // onChangeDropDown(boolean)
+        const changeDropDown = (boolean: boolean, event?:React.MouseEvent<any>) => {
+            event && event.stopPropagation()
+            onChangeDropDown(boolean)
             setDropDown(boolean)
         }
 
@@ -44,7 +42,7 @@ export const Tab =
 
         const onClickAnotherPlaceHandler = (event: MouseEvent) => {
             const isIncludesTab = event.composedPath().includes(tab.current)
-            dropDownStateRef.current && !isIncludesTab && setDropDown(false)
+            dropDownStateRef.current && !isIncludesTab && changeDropDown(false)
         }
 
         useEffect(() => {
@@ -60,7 +58,7 @@ export const Tab =
             setDropDown(false)
         }
         const onClickExecuteHandler = () => {
-            removeRequest()
+            changeDropDown(false)
             executeClick()
         }
 
@@ -81,7 +79,7 @@ export const Tab =
                     <img
                         className='tab__options-button'
                         src='/icons/dots.svg'
-                        onClick={(event) => changeDropDown(event, !dropDown)}
+                        onClick={(event) => changeDropDown(!dropDown, event)}
                     />
                 </div>
                 {dropDown && <div className='tab__options-list'>
