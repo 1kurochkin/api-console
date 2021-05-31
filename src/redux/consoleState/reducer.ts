@@ -4,7 +4,7 @@ import {LOCAL_STORAGE} from "../../constants";
 const initialRequestHistory = [
     {action: 'pong', input:"{\n" +
             "  \"action\":\"pong\"\n" +
-            "}\n", output: "", error:""},
+            "}\n", output: "", errorRequest:"", errorJson:""},
 ]
 const initialState = {
     requestHistory: JSON.parse(
@@ -33,37 +33,33 @@ const slice = createSlice({
             const {index, output} = payload
             state.requestHistory[index].output = JSON.stringify(output)
         },
-        setRequestHistoryError: (state, {payload}: {type:string, payload: {index:number, error:string} }) => {
-            console.log("setRequestHistoryError", payload)
-            const {index, error} = payload
-            state.requestHistory[index].error = error ? JSON.stringify(error) : ""
+        setRequestHistoryErrorJson: (state, {payload}: {type:string, payload: {index:number, errorJson:string} }) => {
+            console.log("setRequestHistoryErrorJson", payload)
+            const {index, errorJson} = payload
+            state.requestHistory[index].errorJson = errorJson ? "Bad JSON format!" : ""
         },
-        appendRequestHistory: (state, {payload}: {type:string, payload: {action:string, input:string} }) => {
+        setRequestHistoryErrorRequest: (state, {payload}: {type:string, payload: {index:number, errorRequest:string} }) => {
+            console.log("setRequestHistoryError", payload)
+            const {index, errorRequest} = payload
+            state.requestHistory[index].errorRequest = errorRequest ? JSON.stringify(errorRequest) : ""
+        },
+        appendRequestHistory: (state, {payload}: {type:string, payload: {action:string, input:string} }):any => {
             const {action, input} = payload
             console.log("appendRequestHistory", payload)
             // const {action: {action}, input} = payload
             const prevRequestHistory = state.requestHistory
-            const indexOfRequest = prevRequestHistory.map( ({action}:any) => action ).indexOf(action)
+            const indexOfRequest = prevRequestHistory.findIndex( ({action}:any) => action === payload.action )
             if(indexOfRequest === -1) {
                 if(prevRequestHistory.length === 15) {
                     state.requestHistory.pop()
                 }
-                state.requestHistory.unshift({...payload, output: "", error:"" })
+                console.log("HELLO prevRequestHistory")
+                state.requestHistory.unshift({...payload, output: "", errorRequest:"", errorJson:"" })
             } else {
-                //[arr[2], arr[5]]  = [arr[5], arr[2]];
                 [prevRequestHistory[0], prevRequestHistory[indexOfRequest]] = [prevRequestHistory[indexOfRequest], prevRequestHistory[0]]
             }
-            // const newRequestHistory = prevRequestHistory.filter( (reqHistory:any) => reqHistory.action === action )
-            // state.requestHistory =
-            // if (state.requestHistory.length <= 15) {
-            //     state.requestHistory.unshift({ ...payload, output: "", error:"" })
-            // } else {
-            //     console.log('MAX LENGTH OF HISTORY IS 15')
-            //     //todo: index is 15 or more delete this tab
-            // }
         },
 
-                                                // {payload}: ({ type:string, payload: { index: string | number }}
         removeRequestHistory: (state, {payload}: any = {}) => {
             console.log("removeRequestHistory", payload)
             const {index:removableIndexEl} = payload
@@ -82,7 +78,8 @@ const slice = createSlice({
 });
 
 export const {
-    setRequestHistoryError,
+    setRequestHistoryErrorJson,
+    setRequestHistoryErrorRequest,
     setRequestHistoryInput,
     appendRequestHistory,
     removeRequestHistory,

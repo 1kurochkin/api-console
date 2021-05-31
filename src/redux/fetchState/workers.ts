@@ -1,11 +1,6 @@
 // @ts-ignore
 import {call, delay, put} from "redux-saga/effects";
-import {
-    postLogout,
-    resetToInitialFetchState,
-    setErrorFetching,
-    setFetching
-} from "../fetchState/reducer";
+import {postLogout, resetToInitialFetchState, setErrorFetching, setFetching} from "../fetchState/reducer";
 import {COOKIE_NAMES, REQUESTS, ROUTES} from "../../constants";
 import {requestToSendsay, sendsay} from "../../api/client";
 import {push} from "connected-react-router";
@@ -14,7 +9,7 @@ import {eraseCookie, setCookie} from "../../helpers/sendsay";
 import {
     removeRequestHistory,
     resetToInitialConsoleState,
-    setRequestHistoryError,
+    setRequestHistoryErrorRequest,
     setRequestHistoryOutput
 } from "../consoleState/reducer";
 
@@ -40,7 +35,9 @@ export function* workerLogin({ type, payload }: workerLoginTypes ): any {
 
     } catch (error) {
         console.log('WORKER LOGIN ERROR: ', error)
-        yield put(setErrorFetching({requestName: REQUESTS.POST_LOGIN, error: {id: error.id, explain: error.explain}}))
+        yield put(
+            setErrorFetching({requestName: REQUESTS.POST_LOGIN, error: {id:error.id, explain: error.explain} })
+        )
     }
     //not loading
     yield put(setFetching({requestName: REQUESTS.POST_LOGIN, loading: false}))
@@ -92,11 +89,10 @@ export function* workerConsoleRequest({ type, payload } : workerConsoleRequestTy
     const { action, index, ...restPayload } = payload
     try {
         const response = yield call(() => requestToSendsay(action, restPayload)) || {}
-        // console.log('responseresponseresponseresponseresponseresponse', response)
         yield put(setRequestHistoryOutput({index, output: response }))
     } catch (error) {
         console.log('workerConsoleRequest error', error)
-        yield put(setRequestHistoryError({error, index} ))
+        yield put(setRequestHistoryErrorRequest({errorRequest:error, index} ))
         yield put(setErrorFetching({requestName: REQUESTS.POST_CONSOLE, error}))
     }
     console.log("HELLO FETCHING FLASE")
