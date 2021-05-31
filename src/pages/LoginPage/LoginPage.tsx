@@ -32,7 +32,7 @@ const LoginPage = () => {
                 </div>
                 {error && <div className='login-page__error'>
                     <div className='login-page__error__header'>
-                        <img src="/icons/error-smile.svg"/>
+                        <img src="/icons/error-emoji.svg"/>
                         <span>Вход не вышел</span>
                     </div>
                     <div className='login-page__error__description'>{error}</div>

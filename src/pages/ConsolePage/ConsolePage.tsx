@@ -11,7 +11,7 @@ import {postConsoleRequest} from "../../redux/fetchState/reducer";
 import {
     appendRequestHistory,
     removeRequestHistory as removeRequestHistoryAC,
-    setRequestHistoryError,
+    setRequestHistoryErrorJson,
 } from "../../redux/consoleState/reducer";
 import {jsonFormat} from "../../helpers/jsonFormat";
 
@@ -22,9 +22,7 @@ const ConsolePage = () => {
 
     const loginName = useSelector((state: storeType) => state.authState.login)
     // @ts-ignore
-    // let error = useSelector((state: storeType) => state.fetchState[REQUESTS.POST_CONSOLE].error)
     const requestHistory = useSelector((state: storeType) => state.consoleState.requestHistory)
-
 
     const dispatch = useDispatch()
     const removeRequestHistory = useCallback(
@@ -33,14 +31,8 @@ const ConsolePage = () => {
         ), [dispatch]
     )
 
-    const [activeTab, setActiveTab1] = useState(0)
-    const setActiveTab = (index:number) => {
-        console.log("setActiveTab setActiveTabsetActiveTabsetActiveTabsetActiveTabsetActiveTabsetActiveTab")
-        setActiveTab1(index)
-    }
-
+    const [activeTab, setActiveTab] = useState(0)
     const {setValue, handleSubmit, watch, control} = useForm();
-
     const {field: inputField} = useController({
         name: FORM.TEXT_AREA_INPUT.name, control
     })
@@ -49,7 +41,6 @@ const ConsolePage = () => {
     })
 
     useEffect(() => {
-        console.log(activeTab, "ACITVE TAB CHANGE")
         setValue(FORM.TEXT_AREA_INPUT.name, requestHistory[activeTab].input)
     }, [activeTab])
 
@@ -72,36 +63,32 @@ const ConsolePage = () => {
             const json = JSON.stringify(JSON.parse(inputValue))
             const preparedJson = jsonFormat(json)
             setValue(FORM.TEXT_AREA_INPUT.name, preparedJson)
-            dispatch(setRequestHistoryError({error:"", index:activeTab} ))
+            dispatch(setRequestHistoryErrorJson({errorJson:"", index:activeTab} ))
         } catch (error) {
-            dispatch(setRequestHistoryError({error, index:activeTab} ))
+            dispatch(setRequestHistoryErrorJson({errorJson:error, index:activeTab} ))
         }
 
     }
 
     const onSendHandle = (index:number) => {
-        console.log(index, "onSendHandle")
         try {
             const isIndexEqualToActiveTab = index === activeTab
             const input = inputField.value
             const payload = isIndexEqualToActiveTab ? JSON.parse(input) : JSON.parse(requestHistory[index].input)
             onFormatterHandler()
-            console.log(payload, "onSendHandle")
+            // @ts-ignore
+            dispatch(postConsoleRequest({...payload, index}))
             dispatch(
                 appendRequestHistory({
                     action:Object.values(payload).join(), input,
                 })
             )
-            // @ts-ignore
-            dispatch(postConsoleRequest({...payload, index: 0}))
             if(!isIndexEqualToActiveTab) {
                 setValue(FORM.TEXT_AREA_INPUT.name, requestHistory[index].input)
             } else setActiveTab(0)
 
-
-
         } catch (error) {
-            dispatch(setRequestHistoryError({error, index} ))
+            dispatch(setRequestHistoryErrorJson({errorJson:error, index} ))
         }
     }
 
@@ -122,7 +109,7 @@ const ConsolePage = () => {
             <div className='console-page__footer'>
                 <Button text='Отправить' loading={loading} disabled={false} onClick={handleSubmit(() => onSendHandle(activeTab))}/>
                 <div className="console-page__footer__right-block">
-                    <img className='console-page__footer__right-block__img' src={"/icons/format.svg"}/>
+                    <img className='console-page__footer__right-block__img' src="/icons/format.svg"/>
                     <span className="console-page__footer__right-block__span" onClick={onFormatterHandler}>Форматировать</span>
                 </div>
             </div>
