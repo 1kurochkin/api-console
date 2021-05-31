@@ -24,7 +24,7 @@ const LoginPage = () => {
 
     return (
         <div className='login-page'>
-                <img className='login-page__logo' src="/icons/logo.svg"/>
+                <img className='login-page__logo' src="api-console/icons/logo.svg"/>
             <div className="login-page__content">
 
                 <div className="login-page__content__head">
@@ -32,7 +32,7 @@ const LoginPage = () => {
                 </div>
                 {error && <div className='login-page__error'>
                     <div className='login-page__error__header'>
-                        <img src="/icons/error-emoji.svg"/>
+                        <img src="api-console/icons/error-emoji.svg"/>
                         <span>Вход не вышел</span>
                     </div>
                     <div className='login-page__error__description'>{error}</div>

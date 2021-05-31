@@ -109,7 +109,7 @@ const ConsolePage = () => {
             <div className='console-page__footer'>
                 <Button text='Отправить' loading={loading} disabled={false} onClick={handleSubmit(() => onSendHandle(activeTab))}/>
                 <div className="console-page__footer__right-block">
-                    <img className='console-page__footer__right-block__img' src="/icons/format.svg"/>
+                    <img className='console-page__footer__right-block__img' src="api-console/icons/format.svg"/>
                     <span className="console-page__footer__right-block__span" onClick={onFormatterHandler}>Форматировать</span>
                 </div>
             </div>

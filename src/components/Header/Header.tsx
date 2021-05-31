@@ -47,12 +47,12 @@ export const Header = React.memo(
                         className="header__right-block__exit-button">
                         <span>Выйти</span>
                         <img className="header__right-block__exitButton_img"
-                             src="/icons/log-out.svg"/>
+                             src="api-console/icons/log-out.svg"/>
                     </div>
 
                     <img
                         className="header__right-block__full-screen-button"
-                        src={fullScreen ? '/icons/full-screen-exit.svg' : '/icons/full-screen.svg'}
+                        src={fullScreen ? 'api-console/icons/full-screen-exit.svg' : 'api-console/icons/full-screen.svg'}
                         onClick={toggleFullScreen}
                     />
                 </div>
