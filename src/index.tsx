@@ -6,6 +6,8 @@ import * as serviceWorker from './serviceWorker';
 // import {Provider} from "react-redux";
 import {BrowserRouter as Router} from "react-router-dom";
 import {Provider} from "react-redux";
+import {history, store} from "./store";
+import { ConnectedRouter } from 'connected-react-router'
 // import {PersistGate} from "redux-persist/integration/react";
 // import createStore from "./store";
 
@@ -14,11 +16,11 @@ import {Provider} from "react-redux";
 
 ReactDOM.render(
     <Router>
-        {/*<Provider store={store}>*/}
-        {/*    <PersistGate loading={null} persistor={persistor}>*/}
+        <Provider store={store}>
+            <ConnectedRouter history={history}>
                 <App/>
-        {/*    </PersistGate>*/}
-        {/*</Provider>*/}
+            </ConnectedRouter>
+        </Provider>
     </Router>,
     document.getElementById('root')
 );

@@ -2,31 +2,64 @@ import React, {useState} from "react";
 import './Tabs.styles.css'
 import {Tab} from "./Tab/Tab";
 import {TabView} from "./Tab/TabView/TabView";
+import {useDispatch} from "react-redux";
+import {removeRequestHistory} from "../../redux/consoleState/reducer";
+import {jsonFormat} from "../../helpers/jsonFormat";
 
 
 type PropsTypes = {
     tabs: Array<object>
-
+    outputField: any
+    inputField: any
+    control: any,
+    removeRequest: Function
+    removeAllRequests: Function
+    executeClick: Function
+    setActiveTab: Function
+    activeTab: number | string
+    // error: any
 }
 
-export const Tabs = React.memo(
-    ({tabs}: PropsTypes) => {
-        const [activeTab, setActiveTab] = useState(0)
-        return (
-            <div className='tabs'>
-                <div className="tabs__row">
-                    {
-                        tabs.map((t: any) => (
-                            <Tab label={t.action.name} isSuccess={true} isActive={t.id === activeTab} onClick={() => {
-                                setActiveTab(t.id)
-                            }}/>
-                        ))
-                    }
-                    <img className='tabs__row__reset' src="/icons/cross.svg"/>
-                </div>
-                <TabView text={activeTab.toString()} error={false}/>
-            </div>
 
+export const Tabs =
+    (props: PropsTypes) => {
+        const {tabs, inputField, removeRequest, executeClick, removeAllRequests, outputField, control, setActiveTab, activeTab} = props
+        const [isOpenTab, setIsOpenTab] = useState(false)
+        console.log(activeTab, "ACTIVE TAAAAAAB")
+        return (
+            <div className={"tabs"}>
+                <div
+                    // style={{overflowY: isOpenTab ? "hidden" : "scroll"}}
+                    className='tabs__row'
+                >
+                    {/*<div className={'tabs__row__absolute'}>*/}
+                        {tabs.map((t: any, index) => (
+                            <Tab key={t.id}
+                                 executeClick={() => executeClick(index)}
+                                 inputText={t.input}
+                                 isLast={index === 0}
+                                 removeRequest={() => removeRequest(index)}
+                                 onChangeDropDown={(isOpenTab:boolean) => setIsOpenTab(isOpenTab)}
+                                 label={t.action}
+                                 error={t.error}
+                                 isActive={index === activeTab}
+                                 onClick={() => setActiveTab(index)}
+                            />
+                        ))
+                        }
+                    {/*</div>*/}
+
+                </div>
+
+                {tabs.map((t: any, index) => (
+                    activeTab === index ? <TabView control={control}
+                                                  inputField={inputField}
+                                                  outputField={{...outputField, value: jsonFormat(t.output)}}
+                                                  error={t.error}
+                    /> : null
+                ))
+                }
+                <img className='tabs__row__reset' src="/icons/cross.svg" onClick={ () => removeAllRequests() } />
+            </div>
         )
     }
-)

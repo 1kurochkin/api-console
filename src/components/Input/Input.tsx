@@ -11,6 +11,7 @@ type PropsTypes = {
     label: string
     optional?: boolean
     error:boolean
+    type?: string
 }
 
 const Input  = (props: PropsTypes) => {
@@ -19,7 +20,7 @@ const Input  = (props: PropsTypes) => {
         <div className={`input-wrapper ${error && "input-wrapper-error"}`}>
 
             <div className='input-wrapper__head'>
-                <label className='input-wrapper__header__label'>{props.label}</label>
+                <label  className='input-wrapper__header__label'>{props.label}</label>
                 {props.optional && <span className='input-wrapper__header__optional'>Опционально</span>}
             </div>
 

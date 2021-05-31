@@ -17,7 +17,7 @@ export const Button  = ( {text, loading, disabled, onClick}: PropsType) => {
 
     return (
         <div className={`button ${disabled && "button-disabled"}`} onClick={onClickHandler}>
-            {text}
+            {loading ? "Loading..." : text}
         </div>
     )
 }

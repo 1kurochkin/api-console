@@ -20,6 +20,7 @@
     margin-bottom: 5px;
 }
 
+
 .input-wrapper__header__optional {
     color: #999999;
     font-size: 12px ;
@@ -40,3 +41,7 @@
     border:1px solid rgba(0, 0, 0, 0.4);
 }
 
+input.input-wrapper__input {
+    font-size: 18px;
+    line-height: 30px;
+}
